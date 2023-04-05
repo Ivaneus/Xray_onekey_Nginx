@@ -39,27 +39,15 @@
     {
       "protocol": "freedom",
       "settings": {},
-      "proxySettings": {
-        "tag": "relay"
-      },	  
+//      "proxySettings": {"tag": "relay"},
       "tag": "direct"
     },
     {
       "protocol": "socks",
       "settings": {
 	    "servers": [
-          {
-           "address": "ip.cc",
-           "port": 5000,
-           "users": [
-             {
-              "user": "ipcc",
-              "pass": "ipcc",
-              "level": 0
-             }
-            ]
-          }
-        ]    
+		{"address": "ip.cc","port": 5000,"users": [{"user": "ipcc","pass": "ipcc","level": 0}]}
+		]    
 	  },
       "tag": "relay"
     },	
