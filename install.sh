@@ -238,7 +238,10 @@ function basic_optimization() {
   sed -i '/^\*\ *hard\ *nofile\ *[[:digit:]]*/d' /etc/security/limits.conf
   echo '* soft nofile 65536' >>/etc/security/limits.conf
   echo '* hard nofile 65536' >>/etc/security/limits.conf
-
+	echo "DefaultLimitCORE=infinity" >> /etc/systemd/system.conf
+	echo "DefaultLimitNOFILE=102400" >> /etc/systemd/system.conf
+	echo "DefaultLimitNPROC=102400" >> /etc/systemd/system.conf  
+  
   # 关闭 Selinux
   if [[ "${ID}" == "centos" || "${ID}" == "ol" ]]; then
     sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
@@ -574,8 +577,8 @@ function restart_all() {
 
 function ws_information() {
   DOMAIN=$(cat ${domain_tmp_dir}/domain)
-  UUID=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].id | tr -d '"')
-  PORT=$(cat "/etc/nginx/conf.d/${DOMAIN}.conf" | grep 'ssl http2' | awk -F ' ' '{print $2}' )
+  UUID=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].password | tr -d '"')
+  PORT=$(cat "/etc/nginx/conf.d/${DOMAIN}.conf" | grep 'ssl http2' | awk -F ' ' '{print $2}' | grep -v '[::]')
   FLOW=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].flow | tr -d '"')
   WS_PATH=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].streamSettings.wsSettings.path | tr -d '"')
 
@@ -593,8 +596,8 @@ function ws_information() {
 
 function ws_link() {
   DOMAIN=$(cat ${domain_tmp_dir}/domain)
-  UUID=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].id | tr -d '"')
-  PORT=$(cat "/etc/nginx/conf.d/${DOMAIN}.conf" | grep 'ssl http2' | awk -F ' ' '{print $2}' )
+  UUID=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].password | tr -d '"')
+  PORT=$(cat "/etc/nginx/conf.d/${DOMAIN}.conf" | grep 'ssl http2' | awk -F ' ' '{print $2}' | grep -v '[::]' )
   FLOW=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].settings.clients[0].flow | tr -d '"')
   WS_PATH=$(cat ${xray_conf_dir}/config.json | jq .inbounds[0].streamSettings.wsSettings.path | tr -d '"')
   WS_PATH_WITHOUT_SLASH=$(echo $WS_PATH | tr -d '/')
