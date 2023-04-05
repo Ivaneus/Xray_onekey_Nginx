@@ -384,6 +384,11 @@ function configure_nginx_temp(){
   sed -i "s/xxx/${domain}/g" ${nginx_conf}
 }
 
+function configure_nginx_conf(){
+  cd /etc/nginx/ && rm -f nginx.conf
+  wget -O nginx.conf https://raw.githubusercontent.com/Ivaneus/Xray_onekey_Nginx/${github_branch}/config/nginx.conf
+}
+
 function configure_nginx() {
   nginx_conf="/etc/nginx/conf.d/${domain}.conf"
   cd /etc/nginx/conf.d/ && rm -f ${domain}.conf
@@ -642,6 +647,7 @@ function install_xray_ws() {
   xray_install
   configure_xray_ws
   nginx_install
+  configure_nginx_conf
   configure_nginx_temp
   configure_web
   ssl_judge_and_install
