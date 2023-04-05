@@ -23,9 +23,11 @@ https://github.com/XTLS/Xray-core/issues/91
 支持配置方式
 
 - Trojan + TCP + TLS + Nginx + WebSocket
+...
 
 wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontent.com/Ivaneus/Xray_onekey_Nginx/nginx_forward/trojan.sh" && chmod +x trojan.sh && bash trojan.sh
 
+...
 
 ### 注意事项
 * 如果你不了解脚本中各项设置的具体含义，除域名外，请使用脚本提供的默认值；
