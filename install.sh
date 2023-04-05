@@ -608,9 +608,9 @@ function ws_link() {
   WS_PATH_WITHOUT_SLASH=$(echo $WS_PATH | tr -d '/')
 
   print_ok "URL 链接（Trojan + WebSocket + TLS）"
-  print_ok "trojan://$UUID@$DOMAIN:$PORT?security=tls&sni=$DOMAIN&type=ws&host=$DOMAIN%2f${WS_PATH_WITHOUT_SLASH}%2f#Trojan_WS_TLS-$DOMAIN"
+  print_ok "trojan://$UUID@$DOMAIN:$PORT?security=tls&sni=$DOMAIN&type=ws&host=$DOMAIN&path=%2f${WS_PATH_WITHOUT_SLASH}%2f#Trojan_WS_TLS-$DOMAIN"
   print_ok "URL 二维码（Trojan + WebSocket + TLS）（请在浏览器中访问）"
-  print_ok "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan://$UUID@$DOMAIN:$PORT?security=tls&sni=$DOMAIN&type=ws&host=$DOMAIN%2f${WS_PATH_WITHOUT_SLASH}%2f#Trojan_WS_TLS-$DOMAIN"
+  print_ok "https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=trojan://$UUID@$DOMAIN:$PORT?security=tls&sni=$DOMAIN&type=ws&host=$DOMAIN&path=%2f${WS_PATH_WITHOUT_SLASH}%2f#Trojan_WS_TLS-$DOMAIN"
 }
 
 function basic_ws_information() {
