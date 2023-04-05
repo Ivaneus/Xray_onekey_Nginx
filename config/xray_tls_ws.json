@@ -39,7 +39,6 @@
     {
       "protocol": "freedom",
       "settings": {},
-//      "proxySettings": {"tag": "relay"},
       "tag": "direct"
     },
     {
