@@ -6,23 +6,31 @@
   },
   "inbounds": [
     {
-      "port": 10086,
+      "port": 32123,
       "listen": "127.0.0.1",
-      "tag": "VLESS-in",
-      "protocol": "VLESS",
+      "tag": "trojan-in",
+      "protocol": "trojan",
       "settings": {
         "clients": [
           {
-            "id": "3f3effce-2640-4f29-b95b-a2106df6d96d",
-            "alterId": 0
+            "password": "ipcc"
           }
         ],
-        "decryption": "none"
+		"fallbacks": [
+		    {
+		     "alpn": "http/1.1",
+		     "dest": 80
+		     },
+		    {
+		      "alpn": "h2",
+		      "dest": 80
+		     }
+		]
       },
       "streamSettings": {
         "network": "ws",
         "wsSettings": {
-          "path": "/e01ec5ea/"
+          "path": "/54b9ca1293/"
         }
       }
     }
@@ -31,8 +39,30 @@
     {
       "protocol": "freedom",
       "settings": {},
+      "proxySettings": {
+        "tag": "relay"
+      },	  
       "tag": "direct"
     },
+    {
+      "protocol": "socks",
+      "settings": {
+	    "servers": [
+          {
+           "address": "ip.cc",
+           "port": 5000,
+           "users": [
+             {
+              "user": "ipcc",
+              "pass": "ipcc",
+              "level": 0
+             }
+            ]
+          }
+        ]    
+	  },
+      "tag": "relay"
+    },	
     {
       "protocol": "blackhole",
       "settings": {},
@@ -55,7 +85,7 @@
       {
         "type": "field",
         "inboundTag": [
-          "VLESS-in"
+          "trojan-in"
         ],
         "outboundTag": "direct"
       }
