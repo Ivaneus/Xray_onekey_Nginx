@@ -257,17 +257,6 @@ END
 sort -u /etc/systemd/system.conf -o /etc/systemd/system.conf
 sed -i '1i\[Manager]' /etc/systemd/system.conf
 
-sed -i '/ulimit/d' /etc/profile
-cat >>/etc/profile <<END
-ulimit -n 600000
-ulimit -u 600000
-ulimit -i 600000
-ulimit -s 600000
-ulimit -l 600000
-ulimit -c 600000
-ulimit -q 600000
-END
-source /etc/profile
   # 关闭 Selinux
   if [[ "${ID}" == "centos" || "${ID}" == "ol" ]]; then
     sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
