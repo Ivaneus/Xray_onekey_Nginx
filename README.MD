@@ -24,7 +24,7 @@ https://github.com/XTLS/Xray-core/issues/91
 
 - Trojan + TCP + TLS + Nginx + WebSocket
 ```
-wget -N --no-check-certificate -q -O install.sh "https://raw.githubusercontent.com/Ivaneus/Xray_onekey_Nginx/nginx_forward/trojan.sh" && chmod +x trojan.sh && bash trojan.sh
+wget -N --no-check-certificate -q -O trojan.sh "https://raw.githubusercontent.com/Ivaneus/Xray_onekey_Nginx/nginx_forward/trojan.sh" && chmod +x trojan.sh && bash trojan.sh
 ```
 
 ### 注意事项
