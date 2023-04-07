@@ -238,10 +238,26 @@ function basic_optimization() {
   sed -i '/^\*\ *hard\ *nofile\ *[[:digit:]]*/d' /etc/security/limits.conf
   echo '* soft nofile 65536' >>/etc/security/limits.conf
   echo '* hard nofile 65536' >>/etc/security/limits.conf
-	echo "DefaultLimitCORE=infinity" >> /etc/systemd/system.conf
-	echo "DefaultLimitNOFILE=102400" >> /etc/systemd/system.conf
-	echo "DefaultLimitNPROC=102400" >> /etc/systemd/system.conf  
-  
+  echo "DefaultLimitCORE=infinity" >> /etc/systemd/system.conf
+  echo "DefaultLimitNOFILE=102400" >> /etc/systemd/system.conf
+  echo "DefaultLimitNPROC=102400" >> /etc/systemd/system.conf
+  echo "DefaultLimitSIGPENDING=102400" >> /etc/systemd/system.conf
+  echo "DefaultLimitSTACK=102400" >> /etc/systemd/system.conf
+  echo "DefaultLimitMEMLOCK=102400" >> /etc/systemd/system.conf
+  echo "DefaultLimitMSGQUEUE=102400" >> /etc/systemd/system.conf  
+
+sed -i '/ulimit/d' /etc/profile
+cat >>/etc/profile <<END
+ulimit -n 1024000
+ulimit -u 1024000
+ulimit -i 1024000
+ulimit -s 1024000
+ulimit -l 1024000
+ulimit -c 1024000
+ulimit -q 1024000
+END
+source /etc/profile 
+
   # 关闭 Selinux
   if [[ "${ID}" == "centos" || "${ID}" == "ol" ]]; then
     sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
