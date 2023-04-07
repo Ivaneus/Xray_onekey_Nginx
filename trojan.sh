@@ -269,6 +269,14 @@ ulimit -q 600000
 END
 source /etc/profile
 
+sed -i '/net.core.default_qdisc/d' /etc/sysctl.conf
+sed -i '/net.ipv4.tcp_congestion_control/d' /etc/sysctl.conf
+sysctl -p
+echo "net.core.default_qdisc=fq" >> /etc/sysctl.conf
+echo "net.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
+echo -e "${Info}BBR启动成功！"
+  
   # 关闭 Selinux
   if [[ "${ID}" == "centos" || "${ID}" == "ol" ]]; then
     sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config
