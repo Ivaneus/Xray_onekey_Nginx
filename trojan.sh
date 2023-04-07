@@ -289,6 +289,10 @@ function domain_check() {
   fi
   local_ipv4=$(curl -s4m8 http://ip.gs)
   local_ipv6=$(curl -s6m8 http://ip.gs)
+  echo $local_ipv4
+  echo $local_ipv6
+  echo $domain_ip
+  
   if [[ -z ${local_ipv4} && -n ${local_ipv6} ]]; then
     # 纯IPv6 VPS，自动添加DNS64服务器以备acme.sh申请证书使用
     echo -e nameserver 2a01:4f8:c2c:123f::1 > /etc/resolv.conf
